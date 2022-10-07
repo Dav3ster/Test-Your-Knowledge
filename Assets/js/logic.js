@@ -12,11 +12,6 @@ var startBtn = document.getElementById('start');
 var initialsEl = document.getElementById('initials');
 var feedbackEl = document.getElementById('feedback');
 
-// sound effects
-var sfxRight = new Audio('assets/sfx/correct.wav');
-var sfxWrong = new Audio('assets/sfx/incorrect.wav');
-
-
 function startQuiz() {
     // hide start screen
 
@@ -45,7 +40,9 @@ function getQuestion() { //this function is going to get the data from the quest
     for (var i = 0; i < currentQuestion.choices.length; i++) {
         // create new button for each choice
         //.createElement
+        var btnChoices = document.createElement("button")
         //.setAttribute (set a class="choice")
+        btnChoices.setAttribute("choices", currentQuestion.choices[i])
         //.textContent
         //.appendChild
     }
