@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Test Your Knowledge</title>
 
-    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <link rel="stylesheet" href="./Assets/css/style.css" />
   </head>
 
   <body>
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
 
-    <div class="timer">Time: <span id="time">0</span></div>
+    <div id="time"></div>
 
     <div class="wrapper">
       <div id="start-screen" class="start">
@@ -27,7 +27,12 @@
 
       <div id="questions" class="hide">
         <h2 id="question-title"></h2>
-        <div id="choices" class="choices"></div>
+        <div id="choices" class="choices">
+          <button id="choice1"></button>
+          <button id="choice2"></button>
+          <button id="choice3"></button>
+          <button id="choice4"></button>
+        </div>
       </div>
 
       <div id="end-screen" class="hide">

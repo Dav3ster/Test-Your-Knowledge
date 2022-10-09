@@ -1,6 +1,6 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
-var time = questions.length * 15;
+var timeLeft = 75;
 var timerId;
 
 // variables to reference DOM elements
@@ -11,19 +11,45 @@ var submitBtn = document.getElementById('submit');
 var startBtn = document.getElementById('start');
 var initialsEl = document.getElementById('initials');
 var feedbackEl = document.getElementById('feedback');
+var choice1 = document.getElementById('choice1')
+var choice2 = document.getElementById('choice2')
+var choice3 = document.getElementById("choice3")
+var choice4 = document.getElementById("choice4")
+choice1.addEventListener("click", getQuestion2)
+choice2.addEventListener("click", getQuestion2)
+choice3.addEventListener("click", getQuestion2)
+choice4.addEventListener("click", getQuestion2)
 
 function startQuiz() {
     // hide start screen
-
+    var hide = document.getElementById("start-screen");
+    document.querySelector(".start").addEventListener("click", function(){
+        hide.style.display = "none"
+    })
+    
     // un-hide questions section
+    var showQ = document.getElementById("questions");
+    document.querySelector(".start").addEventListener("click", function(){
+        showQ.style.display = "block"
+    })
 
-    //start timer (high)
-    //you need to declare a var named timerId. You will also need to use setInterval and clockTick
+    getQuestion()
 
-    //show starting time (high)
-
-    getQuestion();
+    //start timer
+    //You will also need to use setInterval and clockTick
+    timerId = setInterval(countdown, 1000);
+    var elem = document.getElementById("time")
+    function countdown() {
+      if (timeLeft == 0) {
+        clearTimeout(timerId);
+        quizEnd();
+      } else {
+        elem.innerHTML = timeLeft;
+        timeLeft--;
+      }
+    }
 }
+    //getQuestion();
 
 function getQuestion() { //this function is going to get the data from the questions array
     // get current question object from array
@@ -34,79 +60,49 @@ function getQuestion() { //this function is going to get the data from the quest
     titleEl.textContent = currentQuestion.title;
 
     // clear out any old question choices
-    choicesEl.innerHTML = ''; //Study this later
-
-    // create a for loop that creates the choice elements
-    for (var i = 0; i < currentQuestion.choices.length; i++) {
-        // create new button for each choice
-        //.createElement
-        var btnChoices = document.createElement("button")
-        //.setAttribute (set a class="choice")
-        btnChoices.setAttribute("choices", currentQuestion.choices[i])
-        //.textContent
-        //.appendChild
-    }
+   choice1.textContent = currentQuestion.choices[0]
+   choice2.textContent = currentQuestion.choices[1]
+   choice3.textContent = currentQuestion.choices[2]
+   choice4.textContent = currentQuestion.choices[3]
 }
 
-function questionClick(event) {
-    var buttonEl = event.target;
+function getQuestion2(event) { //this function is going to get the data from the questions array
+    // get current question object from array
+    var currentQuestion = questions[currentQuestionIndex]
 
-    // if the clicked element is not a choice button, do nothing.
-    if (!buttonEl.matches('.choice')) {
-        return;
+    var userChoice = event.target.textContent
+    if (userChoice !== currentQuestion.answer) {
+        timeLeft -= 10;
     }
+    currentQuestionIndex++
 
-    // check if user guessed right or wrong
-    if (true) { //replace true with a conditional statement that checks if the clicked choice button's value is the same as the questions[currentQuestionIndex]'s answer
-        //incorrect answer scenario
-
-        // penalize time
-        // display new time on page
-    } else {
-        //correct scenario
-
-        // move to next question
-    }
-    // flash right/wrong feedback on page
-
-    // move to next question
-    currentQuestionIndex++;
-
-    // check if we've run out of questions
-    if (time <= 0 || currentQuestionIndex === questions.length) {
+    if (timeLeft <= 0 || currentQuestionIndex === questions.length) {
         quizEnd();
     } else {
         getQuestion();
     }
+    
 }
+
 
 function quizEnd() {
     // stop timer
     clearInterval(timerId);
-
+    var showQ = document.getElementById("questions");
+    showQ.style.display = "none"
+    timerEl.style.display = "none"
     // show end screen
     var endScreenEl = document.getElementById('end-screen');
     endScreenEl.removeAttribute('class');
 
     // show final score
     var finalScoreEl = document.getElementById('final-score');
-    finalScoreEl.textContent = time;
-
-    // hide questions section
-    questionsEl.setAttribute('class', 'hide');
+    finalScoreEl.textContent = timeLeft;
 }
 
-function clockTick() {
-    // update time
-    time--;
-    timerEl.textContent = time;
-
-    // check if user ran out of time
-    if (time <= 0) {
-        quizEnd();
-    }
-}
-
+// creat a global array
+// set the global array = to JSON.parse(localstorage.getitem("highscorse"))
+// if the local storage doesnt exist set the array = to a empty []
 
 function saveHighscore() {
     // get value of input box
@@ -114,18 +110,10 @@ function saveHighscore() {
 
     // make sure value wasn't empty
     if (initials !== '') {
+        // create a object w/ user intial & user score
+        // push that object into our global array
+        // localstorage.setitem("highscores", JSON.stringify(global array))
 
-        //JSON.parse
-        // get saved scores from localstorage (highscores), or if not any, set to empty array
-        
-
-        // format new score object for current user
-        
-
-        // save to localstorage
-        
-
-        // redirect to next page
         window.location.href = 'highscores.html';
     }
 }
@@ -142,8 +130,5 @@ submitBtn.onclick = saveHighscore;
 
 // user clicks button to start quiz
 startBtn.onclick = startQuiz;
-
-// user clicks on element containing choices
-choicesEl.onclick = questionClick;
 
 initialsEl.onkeyup = checkForEnter;
