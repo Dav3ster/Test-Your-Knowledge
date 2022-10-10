@@ -115,16 +115,15 @@ function saveHighscore() {
 
     // make sure value wasn't empty
     if (initials !== '') {
+        
        var highScorcesData = {
             name: initialsEl.value,
             highscores: timeLeft
        }
 
-        highscores.push(highScorcesData)
-        
-        localStorage.setItem("highscores", JSON.stringify(highscores))
-
-        window.location.href = 'highscores.html';
+       highscores.push(highScorcesData)
+       localStorage.setItem("highscores", JSON.stringify(highscores))
+       window.location.href = 'highscores.html';
     }
 }
 
