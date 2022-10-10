@@ -1,3 +1,37 @@
 .hide {
     display: none;
 }
+
+html {
+    background-color:darkgrey;
+}
+
+div.scores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(90deg,green,grey,blue);
+    color: blue;
+    border: solid black 2px;
+    margin-bottom: 4px;
+}
+
+.highscores-item {
+    color: black;
+    font-size: 25px;
+    margin: 10px 0 10px 0;
+}
+
+h1 {
+    text-align: center;
+    background-image: linear-gradient(90deg, blue,grey,green);
+    color: black;
+    text-shadow:white 1px 2px;
+    margin:0;
+    border: solid black 2px;
+}
+
+.opening-p {
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+}
