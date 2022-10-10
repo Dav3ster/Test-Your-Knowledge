@@ -103,7 +103,6 @@ function quizEnd() {
 // creat a global array
 var highscores = JSON.parse(localStorage.getItem("highscores")) || []
 
-highscores = JSON.parse(localStorage.getItem("highscores"))
 // if the local storage doesnt exist set the array = to a empty []
 if (localStorage == "") {
     highscores = []
@@ -115,7 +114,7 @@ function saveHighscore() {
 
     // make sure value wasn't empty
     if (initials !== '') {
-        
+
        var highScorcesData = {
             name: initialsEl.value,
             highscores: timeLeft
