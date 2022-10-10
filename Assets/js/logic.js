@@ -101,8 +101,7 @@ function quizEnd() {
 }
 
 // creat a global array
-var highscores = []
-// set the global array = to JSON.parse(localstorage.getitem("highscores"))
+var highscores = JSON.parse(localStorage.getItem("highscores")) || []
 highscores = JSON.parse(localStorage.getItem("highscores"))
 // if the local storage doesnt exist set the array = to a empty []
 if (localStorage == "") {
@@ -119,9 +118,9 @@ function saveHighscore() {
             name: initialsEl.value,
             highscores: timeLeft
        }
-        localStorage.setItem("highscores", JSON.stringify(highscores))
-
         highscores.push(highScorcesData)
+
+        localStorage.setItem("highscores", JSON.stringify(highscores))
 
         window.location.href = 'highscores.html';
     }
